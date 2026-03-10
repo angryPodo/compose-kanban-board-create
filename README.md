@@ -25,6 +25,6 @@
 - Text는 Text 정보만 표시한다.
 - Assignee는 작성자의 사진과 이름을 표시한다.
 
-### CreatTaskButton() 구현
+### CreateTaskButton() 구현
 - Box() 레이아웃을 사용한다.
 - isEnabled 파라미터를 가진다.
