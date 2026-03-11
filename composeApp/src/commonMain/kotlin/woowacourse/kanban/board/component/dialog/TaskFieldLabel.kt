@@ -8,12 +8,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun CreateTaskTitle(
-    text: String,
+fun TaskFieldLabel(
+    label: String,
     modifier: Modifier = Modifier,
     isRequired: Boolean = false,
 ) {
-    val text = if (isRequired) "$text *" else text
+    val text = if (isRequired) "$label *" else label
 
     Text(
         text = text,
@@ -24,13 +24,13 @@ fun CreateTaskTitle(
 
 @Preview(showBackground = true)
 @Composable
-private fun CreateTaskTitlePreview() {
+private fun TaskFieldLabelPreview() {
     Column {
-        CreateTaskTitle(
-            text = "제목",
+        TaskFieldLabel(
+            label = "제목",
             isRequired = true,
         )
 
-        CreateTaskTitle(text = "설명")
+        TaskFieldLabel(label = "설명")
     }
 }

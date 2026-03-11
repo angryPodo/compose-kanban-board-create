@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun CreateTaskButton(
+fun TaskDialogButton(
     text: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -48,16 +48,16 @@ fun CreateTaskButton(
 
 @Preview
 @Composable
-private fun CreateTaskButtonPreview() {
+private fun TaskDialogButtonPreview() {
     Row(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        CreateTaskButton(
+        TaskDialogButton(
             text = "취소",
             onClick = {},
         )
 
-        CreateTaskButton(
+        TaskDialogButton(
             text = "생성",
             enabled = false,
             containerColor = Color.Blue,
@@ -65,7 +65,7 @@ private fun CreateTaskButtonPreview() {
             onClick = {},
         )
 
-        CreateTaskButton(
+        TaskDialogButton(
             text = "생성",
             enabled = true,
             containerColor = Color.Blue,

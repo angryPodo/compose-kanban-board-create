@@ -15,7 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun TextOptionCard(
+fun StatusOptionCard(
     text: String,
     isSelected: Boolean,
     onClick: () -> Unit,
@@ -38,10 +38,10 @@ fun TextOptionCard(
 
 @Preview(showBackground = true)
 @Composable
-private fun TextOptionCardPreview() {
+private fun StatusOptionCardPreview() {
     var isSelected by remember { mutableStateOf(false) }
 
-    TextOptionCard(
+    StatusOptionCard(
         text = "To Do",
         isSelected = isSelected,
         onClick = { isSelected = !isSelected },
