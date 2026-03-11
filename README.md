@@ -28,3 +28,6 @@
 ### TaskDialogButton() 구현
 - Box() 레이아웃을 사용한다.
 - isEnabled 파라미터를 가진다.
+
+### TaskDialog() 구현
+- 여러 컴포넌트를 조합한 새 태스크 생성 다이얼로그를 구현한다.
