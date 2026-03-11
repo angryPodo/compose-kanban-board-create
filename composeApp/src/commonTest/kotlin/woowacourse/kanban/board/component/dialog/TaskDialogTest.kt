@@ -18,7 +18,7 @@ class TaskDialogTest {
         setContent {
             TaskDialog(
                 onCreateClick = { _, _, _, _, _ -> },
-                onDismissClick = {}
+                onDismissClick = {},
             )
         }
 
@@ -35,7 +35,7 @@ class TaskDialogTest {
         setContent {
             TaskDialog(
                 onCreateClick = { _, _, _, _, _ -> },
-                onDismissClick = {}
+                onDismissClick = {},
             )
         }
 
@@ -53,7 +53,7 @@ class TaskDialogTest {
         setContent {
             TaskDialog(
                 onCreateClick = { _, _, _, _, _ -> },
-                onDismissClick = {}
+                onDismissClick = {},
             )
         }
 
@@ -73,7 +73,7 @@ class TaskDialogTest {
         setContent {
             TaskDialog(
                 onCreateClick = { _, _, _, _, _ -> },
-                onDismissClick = {}
+                onDismissClick = {},
             )
         }
 

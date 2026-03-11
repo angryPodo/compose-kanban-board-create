@@ -108,9 +108,9 @@ fun TaskDialog(
                     descriptionValue.takeIf { it.isNotBlank() },
                     tagList,
                     statuses[selectedStatusIndex],
-                    assignees[selectedAssigneeIndex]
+                    assignees[selectedAssigneeIndex],
                 )
-            }
+            },
         )
     }
 }
@@ -284,7 +284,7 @@ private fun TaskLabelLayout(
     content: @Composable ColumnScope.() -> Unit,
 ) {
     Column(
-        modifier = modifier
+        modifier = modifier,
     ) {
         TaskFieldLabel(
             label = label,

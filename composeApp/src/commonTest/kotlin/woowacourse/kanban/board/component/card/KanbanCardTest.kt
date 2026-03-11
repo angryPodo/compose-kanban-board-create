@@ -4,8 +4,8 @@ import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.runComposeUiTest
-import woowacourse.kanban.board.domain.KanbanTask
 import kotlin.test.Test
+import woowacourse.kanban.board.domain.KanbanTask
 
 @OptIn(ExperimentalTestApi::class)
 class KanbanCardTest {

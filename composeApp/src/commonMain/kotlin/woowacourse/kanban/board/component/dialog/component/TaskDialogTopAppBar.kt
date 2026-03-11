@@ -20,11 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun TaskDialogTopAppBar(
-    title: String,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-) {
+fun TaskDialogTopAppBar(title: String, onClick: () -> Unit, modifier: Modifier = Modifier) {
     Row(
         modifier = modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,

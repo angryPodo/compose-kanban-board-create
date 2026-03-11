@@ -21,12 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun AssigneeOptionCard(
-    name: String,
-    isSelected: Boolean,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-) {
+fun AssigneeOptionCard(name: String, isSelected: Boolean, onClick: () -> Unit, modifier: Modifier = Modifier) {
     TaskOptionCard(
         isSelected = isSelected,
         onClick = onClick,
