@@ -27,7 +27,6 @@ class TaskDialogTest {
         onNodeWithText("생성").assertIsNotEnabled()
     }
 
-
     @Test
     fun `제목을 입력하면 생성 버튼이 활성화된다`() = runComposeUiTest {
         // Given
@@ -44,7 +43,6 @@ class TaskDialogTest {
         // Then
         onNodeWithText("생성").assertIsEnabled()
     }
-
 
     @Test
     fun `제목을 입력하고 태그 개수가 1개이면서 1~5자 이내일 경우 생성 버튼이 활성화된다`() = runComposeUiTest {
@@ -83,7 +81,6 @@ class TaskDialogTest {
         onNodeWithText("태그 형식이 올바르지 않습니다.").assertIsDisplayed()
         onNodeWithText("생성").assertIsNotEnabled()
     }
-
 
     @Test
     fun `제목을 입력하고 태그를 6개 입력하면 생성 버튼이 비활성화되고 에러 메시지가 노출된다`() = runComposeUiTest {

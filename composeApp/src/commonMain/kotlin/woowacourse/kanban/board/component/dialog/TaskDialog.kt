@@ -45,7 +45,7 @@ fun TaskDialog(
     onDismissClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    var titleValue by remember { mutableStateOf("")  }
+    var titleValue by remember { mutableStateOf("") }
     var isTitleDirty by remember { mutableStateOf(false) }
     val isTitleError by remember {
         derivedStateOf {
