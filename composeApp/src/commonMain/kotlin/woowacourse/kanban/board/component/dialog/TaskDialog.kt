@@ -45,14 +45,32 @@ fun TaskDialog(
     onDismissClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    var titleValue by remember { mutableStateOf("") }
-    var isTitleError by remember { mutableStateOf(false) }
+    var titleValue by remember { mutableStateOf("")  }
+    var isTitleDirty by remember { mutableStateOf(false) }
+    val isTitleError by remember {
+        derivedStateOf {
+            isTitleDirty && !KanbanTask.isTitleValid(titleValue)
+        }
+    }
 
     var descriptionValue by remember { mutableStateOf("") }
 
     var tagValue by remember { mutableStateOf("") }
-    var isTagCountError by remember { mutableStateOf(false) }
-    var isTagFormatError by remember { mutableStateOf(false) }
+    val tags by remember {
+        derivedStateOf {
+            if (tagValue.isBlank()) emptyList() else tagValue.split(",").map { it.trim() }
+        }
+    }
+    val isTagCountError by remember {
+        derivedStateOf {
+            tagValue.isNotBlank() && !KanbanTask.isTagCountValid(tags)
+        }
+    }
+    val isTagFormatError by remember {
+        derivedStateOf {
+            tagValue.isNotBlank() && !KanbanTask.isTagFormatValid(tags)
+        }
+    }
 
     val statuses = listOf("To Do", "In Progress", "Done")
     var selectedStatusIndex by remember { mutableIntStateOf(0) }
@@ -80,19 +98,14 @@ fun TaskDialog(
             isTitleError = isTitleError,
             onTitleChanged = {
                 titleValue = it
-                isTitleError = !KanbanTask.isTitleValid(it)
+                isTitleDirty = true
             },
             descriptionValue = descriptionValue,
             onDescriptionChanged = { descriptionValue = it },
             tagValue = tagValue,
             isTagCountError = isTagCountError,
             isTagFormatError = isTagFormatError,
-            onTagChanged = { value ->
-                tagValue = value
-                val tagList = if (value.isBlank()) emptyList() else value.split(",").map { it.trim() }
-                isTagCountError = !KanbanTask.isTagCountValid(tagList)
-                isTagFormatError = !KanbanTask.isTagFormatValid(tagList)
-            },
+            onTagChanged = { tagValue = it },
             statuses = statuses,
             selectedStatusIndex = selectedStatusIndex,
             onStatusChanged = { selectedStatusIndex = it },
@@ -102,7 +115,6 @@ fun TaskDialog(
             enabled = enabled,
             onDismissClick = onDismissClick,
             onCreateClick = {
-                val tags = if (tagValue.isBlank()) emptyList() else tagValue.split(",").map { it.trim() }
                 onCreateClick(
                     titleValue,
                     descriptionValue.takeIf { it.isNotBlank() },
