@@ -102,11 +102,11 @@ fun TaskDialog(
             enabled = enabled,
             onDismissClick = onDismissClick,
             onCreateClick = {
-                val tagList = if (tagValue.isBlank()) emptyList() else tagValue.split(",").map { it.trim() }
+                val tags = if (tagValue.isBlank()) emptyList() else tagValue.split(",").map { it.trim() }
                 onCreateClick(
                     titleValue,
                     descriptionValue.takeIf { it.isNotBlank() },
-                    tagList,
+                    tags,
                     statuses[selectedStatusIndex],
                     assignees[selectedAssigneeIndex],
                 )
@@ -141,7 +141,7 @@ private fun TaskDialogContent(
     val tagErrorMessage = when {
         isTagCountError -> "태그는 5자 이내로 5개까지만 등록할 수 있습니다."
         isTagFormatError -> "태그 형식이 올바르지 않습니다."
-        else -> "태그를 쉼표로 구분하여 입력하세요. (예: 버그,긴급)"
+        else -> "5자 이내의 태그를 최대 5개까지 등록할 수 있습니다."
     }
 
     Column(
