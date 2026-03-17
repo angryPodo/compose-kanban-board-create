@@ -11,7 +11,7 @@ fun App() {
     MaterialTheme {
         TaskDialog(
             onDismissClick = {},
-            onCreateClick = { _, _, _, _, _ -> },
+            onCreateClick = { _ -> },
         )
     }
 }
