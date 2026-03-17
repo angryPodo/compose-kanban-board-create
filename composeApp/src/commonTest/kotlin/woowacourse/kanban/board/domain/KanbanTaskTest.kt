@@ -11,7 +11,7 @@ class KanbanTaskTest {
         // Given
         val title = "새로운 기능 구현"
         val description = "이 기능은 매우 중요합니다."
-        val tags = listOf("긴급", "백엔드")
+        val tags = listOf(Tag("긴급"), Tag("백엔드"))
         val crewName = "아키"
 
         // When
@@ -54,20 +54,15 @@ class KanbanTaskTest {
     }
 
     @Test
-    fun `태그 제한 - 6개 이상의 태그를 넣어도 visibleTags는 5개만 반환한다`() {
+    fun `KanbanTask 생성 실패 - 태그가 6개 이상인 경우`() {
         // Given
-        val tags = listOf("1", "2", "3", "4", "5", "6")
-        val task = KanbanTask(title = "제목", tags = tags, crewName = " 아키")
+        val tags = listOf(Tag("1"), Tag("2"), Tag("3"), Tag("4"), Tag("5"), Tag("6"))
 
-        // When
-        val visibleTags = task.visibleTags
-
-        // Then
-        assertThat(visibleTags).hasSize(5)
-        assertThat(visibleTags).containsExactly("1", "2", "3", "4", "5")
-
-        // 추가 검증: 원본 데이터는 6개로 유지된다
-        assertThat(task.tags).hasSize(6)
+        // When & Then
+        val exception = assertFailsWith<IllegalArgumentException> {
+            KanbanTask(title = "제목", tags = tags, crewName = "아키")
+        }
+        assertThat(exception.message).isEqualTo("태그는 5개까지만 등록할 수 있습니다.")
     }
 
     @Test
@@ -84,31 +79,11 @@ class KanbanTaskTest {
     @Test
     fun `isTagCountValid 검증 - 태그가 5개 이하이면 true를 반환한다`() {
         assertThat(KanbanTask.isTagCountValid(emptyList())).isTrue()
-        assertThat(KanbanTask.isTagCountValid(listOf("1", "2", "3", "4", "5"))).isTrue()
+        assertThat(KanbanTask.isTagCountValid(listOf(Tag("1"), Tag("2"), Tag("3"), Tag("4"), Tag("5")))).isTrue()
     }
 
     @Test
     fun `isTagCountValid 검증 - 태그가 6개 이상이면 false를 반환한다`() {
-        assertThat(KanbanTask.isTagCountValid(listOf("1", "2", "3", "4", "5", "6"))).isFalse()
-    }
-
-    @Test
-    fun `isTagFormatValid 검증 - 빈 리스트면 true를 반환한다`() {
-        assertThat(KanbanTask.isTagFormatValid(emptyList())).isTrue()
-    }
-
-    @Test
-    fun `isTagFormatValid 검증 - 모든 태그가 1~5자이면 true를 반환한다`() {
-        assertThat(KanbanTask.isTagFormatValid(listOf("1", "12345", "태그임다"))).isTrue()
-    }
-
-    @Test
-    fun `isTagFormatValid 검증 - 태그 중 하나라도 5자를 초과하면 false를 반환한다`() {
-        assertThat(KanbanTask.isTagFormatValid(listOf("정상태그", "여섯글자태그"))).isFalse()
-    }
-
-    @Test
-    fun `isTagFormatValid 검증 - 태그 중 하나라도 비어있으면 false를 반환한다`() {
-        assertThat(KanbanTask.isTagFormatValid(listOf("정상", ""))).isFalse()
+        assertThat(KanbanTask.isTagCountValid(listOf(Tag("1"), Tag("2"), Tag("3"), Tag("4"), Tag("5"), Tag("6")))).isFalse()
     }
 }

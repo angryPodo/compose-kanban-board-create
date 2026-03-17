@@ -6,6 +6,7 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.runComposeUiTest
 import kotlin.test.Test
 import woowacourse.kanban.board.domain.KanbanTask
+import woowacourse.kanban.board.domain.Tag
 
 @OptIn(ExperimentalTestApi::class)
 class KanbanCardTest {
@@ -16,7 +17,7 @@ class KanbanCardTest {
         val task = KanbanTask(
             title = "새로운 기능 구현",
             description = "이 기능은 매우 중요합니다.",
-            tags = listOf("긴급", "백엔드"),
+            tags = listOf(Tag("긴급"), Tag("백엔드")),
             crewName = "아키",
         )
 
@@ -25,7 +26,7 @@ class KanbanCardTest {
             KanbanCard(
                 title = task.title,
                 description = task.description,
-                tags = task.visibleTags,
+                tags = task.tags,
                 crewName = task.crewName,
             )
         }
@@ -44,7 +45,7 @@ class KanbanCardTest {
         val task = KanbanTask(
             title = "새로운 기능 구현",
             description = null,
-            tags = listOf("긴급"),
+            tags = listOf(Tag("긴급")),
             crewName = "아키",
         )
 
@@ -53,7 +54,7 @@ class KanbanCardTest {
             KanbanCard(
                 title = task.title,
                 description = task.description,
-                tags = task.visibleTags,
+                tags = task.tags,
                 crewName = task.crewName,
             )
         }
@@ -79,7 +80,7 @@ class KanbanCardTest {
             KanbanCard(
                 title = task.title,
                 description = task.description,
-                tags = task.visibleTags,
+                tags = task.tags,
                 crewName = task.crewName,
             )
         }

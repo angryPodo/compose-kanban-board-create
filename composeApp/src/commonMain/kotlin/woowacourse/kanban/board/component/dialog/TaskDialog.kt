@@ -38,6 +38,7 @@ import woowacourse.kanban.board.component.dialog.component.TaskDialogTextField
 import woowacourse.kanban.board.component.dialog.component.TaskDialogTopAppBar
 import woowacourse.kanban.board.component.dialog.component.TaskFieldLabel
 import woowacourse.kanban.board.domain.KanbanTask
+import woowacourse.kanban.board.domain.Tag
 
 @Composable
 fun TaskDialog(
@@ -63,12 +64,12 @@ fun TaskDialog(
     }
     val isTagCountError by remember {
         derivedStateOf {
-            tagValue.isNotBlank() && !KanbanTask.isTagCountValid(tags)
+            tagValue.isNotBlank() && tags.size > 5
         }
     }
     val isTagFormatError by remember {
         derivedStateOf {
-            tagValue.isNotBlank() && !KanbanTask.isTagFormatValid(tags)
+            tagValue.isNotBlank() && !tags.all { Tag.isValid(it) }
         }
     }
 
