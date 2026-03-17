@@ -15,10 +15,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -37,8 +35,6 @@ import woowacourse.kanban.board.component.dialog.component.TaskDialogButton
 import woowacourse.kanban.board.component.dialog.component.TaskDialogTextField
 import woowacourse.kanban.board.component.dialog.component.TaskDialogTopAppBar
 import woowacourse.kanban.board.component.dialog.component.TaskFieldLabel
-import woowacourse.kanban.board.domain.KanbanTask
-import woowacourse.kanban.board.domain.Tag
 import woowacourse.kanban.board.domain.TaskStatus
 
 @Composable
@@ -47,44 +43,13 @@ fun TaskDialog(
     onDismissClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    var titleValue by remember { mutableStateOf("") }
-    var isTitleDirty by remember { mutableStateOf(false) }
-    val isTitleError by remember {
-        derivedStateOf {
-            isTitleDirty && !KanbanTask.isTitleValid(titleValue)
-        }
-    }
-
-    var descriptionValue by remember { mutableStateOf("") }
-
-    var tagValue by remember { mutableStateOf("") }
-    val tags by remember {
-        derivedStateOf {
-            if (tagValue.isBlank()) emptyList() else tagValue.split(",").map { it.trim() }
-        }
-    }
-    val isTagCountError by remember {
-        derivedStateOf {
-            tagValue.isNotBlank() && tags.size > 5
-        }
-    }
-    val isTagFormatError by remember {
-        derivedStateOf {
-            tagValue.isNotBlank() && !tags.all { Tag.isValid(it) }
-        }
-    }
+    val formState = rememberTaskFormState()
 
     val statuses = TaskStatus.entries
     var selectedStatusIndex by remember { mutableIntStateOf(0) }
 
     val assignees = listOf("다이노", "페임스")
     var selectedAssigneeIndex by remember { mutableIntStateOf(0) }
-
-    val enabled by remember {
-        derivedStateOf {
-            KanbanTask.isTitleValid(titleValue) && !isTagCountError && !isTagFormatError
-        }
-    }
 
     Dialog(
         onDismissRequest = onDismissClick,
@@ -96,31 +61,31 @@ fun TaskDialog(
     ) {
         TaskDialogContent(
             modifier = modifier,
-            titleValue = titleValue,
-            isTitleError = isTitleError,
+            titleValue = formState.title,
+            isTitleError = formState.isTitleError,
             onTitleChanged = {
-                titleValue = it
-                isTitleDirty = true
+                formState.title = it
+                formState.isTitleDirty = true
             },
-            descriptionValue = descriptionValue,
-            onDescriptionChanged = { descriptionValue = it },
-            tagValue = tagValue,
-            isTagCountError = isTagCountError,
-            isTagFormatError = isTagFormatError,
-            onTagChanged = { tagValue = it },
+            descriptionValue = formState.description,
+            onDescriptionChanged = { formState.description = it },
+            tagValue = formState.tagValue,
+            isTagCountError = formState.isTagCountError,
+            isTagFormatError = formState.isTagFormatError,
+            onTagChanged = { formState.tagValue = it },
             statuses = statuses,
             selectedStatusIndex = selectedStatusIndex,
             onStatusChanged = { selectedStatusIndex = it },
             assignees = assignees,
             selectedAssigneeIndex = selectedAssigneeIndex,
             onAssigneeChanged = { selectedAssigneeIndex = it },
-            enabled = enabled,
+            enabled = formState.isCreateButtonEnabled,
             onDismissClick = onDismissClick,
             onCreateClick = {
                 onCreateClick(
-                    titleValue,
-                    descriptionValue.takeIf { it.isNotBlank() },
-                    tags,
+                    formState.title,
+                    formState.description.takeIf { it.isNotBlank() },
+                    formState.rawTags,
                     statuses[selectedStatusIndex],
                     assignees[selectedAssigneeIndex],
                 )
