@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.sp
 import org.jetbrains.compose.resources.DrawableResource
 import woowacourse.kanban.board.domain.KanbanTask
 import woowacourse.kanban.board.domain.Tag
+import woowacourse.kanban.board.domain.TaskStatus
 
 @Composable
 fun KanbanCard(
@@ -109,6 +110,7 @@ private fun KanbanCardPreview_Optional() {
             description = commonDescription,
             tags = tags,
             crewName = commonCrewName,
+            status = TaskStatus.TODO,
         )
         KanbanCard(
             title = fullTask.title,
@@ -121,6 +123,7 @@ private fun KanbanCardPreview_Optional() {
             title = commonTitle,
             tags = tags,
             crewName = commonCrewName,
+            status = TaskStatus.TODO,
         )
         KanbanCard(
             title = noDescriptionTask.title,
@@ -132,6 +135,7 @@ private fun KanbanCardPreview_Optional() {
             title = commonTitle,
             description = commonDescription,
             crewName = commonCrewName,
+            status = TaskStatus.TODO,
         )
         KanbanCard(
             title = noTagsTask.title,
@@ -142,6 +146,7 @@ private fun KanbanCardPreview_Optional() {
         val minimalTask = KanbanTask(
             title = commonTitle,
             crewName = commonCrewName,
+            status = TaskStatus.TODO,
         )
         KanbanCard(
             title = minimalTask.title,
@@ -159,6 +164,7 @@ private fun KanbanCardPreview_Max() {
             description = "세로 스크롤 가능한 리스트 컴포넌트를 만들고 성능 최적화를 적용합니다.".repeat(3),
             tags = listOf(Tag("컴포넌트"), Tag("성능"), Tag("긴 태그"), Tag("최대로"), Tag("5자까지")),
             crewName = "아키".repeat(10),
+            status = TaskStatus.TODO,
         )
         KanbanCard(
             title = maxTask.title,

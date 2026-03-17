@@ -4,9 +4,10 @@ import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.runComposeUiTest
-import kotlin.test.Test
 import woowacourse.kanban.board.domain.KanbanTask
 import woowacourse.kanban.board.domain.Tag
+import woowacourse.kanban.board.domain.TaskStatus
+import kotlin.test.Test
 
 @OptIn(ExperimentalTestApi::class)
 class KanbanCardTest {
@@ -19,6 +20,7 @@ class KanbanCardTest {
             description = "이 기능은 매우 중요합니다.",
             tags = listOf(Tag("긴급"), Tag("백엔드")),
             crewName = "아키",
+            status = TaskStatus.TODO,
         )
 
         // When
@@ -47,6 +49,7 @@ class KanbanCardTest {
             description = null,
             tags = listOf(Tag("긴급")),
             crewName = "아키",
+            status = TaskStatus.TODO,
         )
 
         // When
@@ -73,6 +76,7 @@ class KanbanCardTest {
             description = "설명입니다.",
             tags = emptyList(),
             crewName = "아키",
+            status = TaskStatus.TODO,
         )
 
         // When

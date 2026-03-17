@@ -39,10 +39,11 @@ import woowacourse.kanban.board.component.dialog.component.TaskDialogTopAppBar
 import woowacourse.kanban.board.component.dialog.component.TaskFieldLabel
 import woowacourse.kanban.board.domain.KanbanTask
 import woowacourse.kanban.board.domain.Tag
+import woowacourse.kanban.board.domain.TaskStatus
 
 @Composable
 fun TaskDialog(
-    onCreateClick: (title: String, description: String?, tags: List<String>, status: String, assignee: String) -> Unit,
+    onCreateClick: (title: String, description: String?, tags: List<String>, status: TaskStatus, assignee: String) -> Unit,
     onDismissClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -73,7 +74,7 @@ fun TaskDialog(
         }
     }
 
-    val statuses = listOf("To Do", "In Progress", "Done")
+    val statuses = TaskStatus.entries
     var selectedStatusIndex by remember { mutableIntStateOf(0) }
 
     val assignees = listOf("다이노", "페임스")
@@ -139,7 +140,7 @@ private fun TaskDialogContent(
     isTagCountError: Boolean,
     isTagFormatError: Boolean,
     onTagChanged: (String) -> Unit,
-    statuses: List<String>,
+    statuses: List<TaskStatus>,
     selectedStatusIndex: Int,
     onStatusChanged: (Int) -> Unit,
     assignees: List<String>,
@@ -235,9 +236,14 @@ private fun TaskDialogContent(
             Row(
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
             ) {
-                statuses.forEachIndexed { index, string ->
+                statuses.forEachIndexed { index, status ->
+                    val statusText = when (status) {
+                        TaskStatus.TODO -> "To Do"
+                        TaskStatus.IN_PROGRESS -> "In Progress"
+                        TaskStatus.DONE -> "Done"
+                    }
                     StatusOptionCard(
-                        text = string,
+                        text = statusText,
                         isSelected = selectedStatusIndex == index,
                         onClick = { onStatusChanged(index) },
                     )
@@ -323,7 +329,7 @@ private fun TaskDialogContentPreview() {
         isTagCountError = false,
         isTagFormatError = false,
         onTagChanged = {},
-        statuses = listOf("To Do", "In Progress", "Done"),
+        statuses = TaskStatus.entries,
         selectedStatusIndex = 0,
         onStatusChanged = {},
         assignees = listOf("다이노", "페임스"),

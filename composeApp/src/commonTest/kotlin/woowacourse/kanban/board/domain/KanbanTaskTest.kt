@@ -20,6 +20,7 @@ class KanbanTaskTest {
             description = description,
             tags = tags,
             crewName = crewName,
+            status = TaskStatus.TODO,
         )
 
         // Then
@@ -36,7 +37,7 @@ class KanbanTaskTest {
 
         // When & Then
         val exception = assertFailsWith<IllegalArgumentException> {
-            KanbanTask(title = emptyTitle, crewName = "아키")
+            KanbanTask(title = emptyTitle, crewName = "아키", status = TaskStatus.TODO)
         }
         assertThat(exception.message).isEqualTo("제목은 비어 있거나 공백만 있을 수 없습니다.")
     }
@@ -48,7 +49,7 @@ class KanbanTaskTest {
 
         // When & Then
         val exception = assertFailsWith<IllegalArgumentException> {
-            KanbanTask(title = blankTitle, crewName = "아키")
+            KanbanTask(title = blankTitle, crewName = "아키", status = TaskStatus.TODO)
         }
         assertThat(exception.message).isEqualTo("제목은 비어 있거나 공백만 있을 수 없습니다.")
     }
@@ -60,7 +61,7 @@ class KanbanTaskTest {
 
         // When & Then
         val exception = assertFailsWith<IllegalArgumentException> {
-            KanbanTask(title = "제목", tags = tags, crewName = "아키")
+            KanbanTask(title = "제목", tags = tags, crewName = "아키", status = TaskStatus.TODO)
         }
         assertThat(exception.message).isEqualTo("태그는 5개까지만 등록할 수 있습니다.")
     }
