@@ -1,40 +1,35 @@
-This is a Kotlin Multiplatform project targeting Android, Desktop (JVM).
+## 🚀 1단계 - 칸반 보드 생성(상품 목록)
 
-* [/composeApp](./composeApp/src) is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - [commonMain](./composeApp/src/commonMain/kotlin) is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    the [iosMain](./composeApp/src/iosMain/kotlin) folder would be the right place for such calls.
-    Similarly, if you want to edit the Desktop (JVM) specific part, the [jvmMain](./composeApp/src/jvmMain/kotlin)
-    folder is the appropriate location.
+안드로이드 8기 레벨 1 미션, 칸반 보드 생성미션을 관리하는 프로젝트입니다.
 
-### Build and Run Android Application
+## 1단계 기능 및 작업 명세
 
-To build and run the development version of the Android app, use the run configuration from the run widget
-in your IDE’s toolbar or build it directly from the terminal:
-- on macOS/Linux
-  ```shell
-  ./gradlew :composeApp:assembleDebug
-  ```
-- on Windows
-  ```shell
-  .\gradlew.bat :composeApp:assembleDebug
-  ```
+### 새 태스크 생성 다이얼로그 UI 구현
+- 제목, 상태, 담당자는 필수 입력으로 지정하고, 설명과 태그는 선택 입력으로 제공합니다.
+- 상태와 담당자는 사용자의 편의를 위해 첫 번째 항목이 기본 선택되도록 렌더링합니다.
+- 재사용성을 높이기 위해 상단 앱바, 라벨, 텍스트 필드, 버튼 등의 작은 단위 UI 컴포넌트를 조립하여 다이얼로그를 구성합니다.
 
-### Build and Run Desktop (JVM) Application
+### 도메인 규칙 기반 유효성 검증
+- 제목은 공백으로만 이루어질 수 없으며, 비어있어서도 안 됩니다.
+- 태그는 스스로 1자 이상 5자 이하의 형식을 검증하는 책임을 지는 객체로 분리되었습니다.
+- `KanbanTask`는 태그들을 최대 5개까지만 가지도록 개수를 검증하여 책임을 나눕니다.
+- 사용자가 입력을 시도한 이후부터 유효성 에러 메시지가 노출되도록 하여 사용자 경험을 개선합니다.
 
-To build and run the development version of the desktop app, use the run configuration from the run widget
-in your IDE’s toolbar or run it directly from the terminal:
-- on macOS/Linux
-  ```shell
-  ./gradlew :composeApp:run
-  ```
-- on Windows
-  ```shell
-  .\gradlew.bat :composeApp:run
-  ```
+### 폼 상태 관리 및 컴포넌트 분리
+- UI 컴포넌트가 지고 있던 상태 관리 및 비즈니스 로직(데이터 가공, 유효성 검사)을 Kotlin 클래스로 분리합니다.
+- UI는 '그리는 역할'에만 집중하고 복잡한 상태 관리는 상태 객체에게 위임하여 단위 테스트의 용이성을 확보합니다.
+- 임시 입력 상태는 상위로 호이스팅하지 않고 다이얼로그 내부에서만 캡슐화해서 관리합니다.
 
----
+## 테스트 명세
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+### 단위 테스트
+- 순수 Kotlin으로 작성된 `KanbanTask` 도메인 모델에 대해 다음 규칙들을 검증합니다.
+  - 제목이 유효한지 검증
+  - 태그의 개수가 5개 이하인지 검증
+  - 태그의 형식이 1~5자 이내인지 검증
+- 도메인 검증 로직을 `KanbanTask`가 직접 책임지도록 강제하는 테스트를 수행합니다.
+
+### Compose UI 테스트
+- BDD 스타일로 UI의 동작을 검증합니다.
+- 제목이 비어있거나 태그 형식이 올바르지 않으면 '생성' 버튼이 비활성화되는지 확인합니다.
+- 올바른 값을 입력했을 때 '생성' 버튼이 활성화되고 에러 메시지가 사라지는지 테스트합니다.
