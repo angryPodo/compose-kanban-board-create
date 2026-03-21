@@ -55,7 +55,7 @@ fun KanbanSnackbar(message: String, onClick: () -> Unit, modifier: Modifier = Mo
 
 @Preview
 @Composable
-private fun KanbanSnackbarPreiview() {
+private fun KanbanSnackbarPreview() {
     KanbanSnackbar(
         message = "새로운 태스크가 추가되었습니다.",
         onClick = {},
