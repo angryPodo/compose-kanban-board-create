@@ -24,13 +24,14 @@ class KanbanBoardScreenTest {
 
         // When
         setContent {
-            KanbanBoardScreen(boardState = state)
+            KanbanBoardScreen(
+                boardState = state,
+                onShowSnackbar = {}
+            )
         }
 
-        // Then 1
+        // Then
         onNodeWithText("완료율: 50% (1/2)").assertIsDisplayed()
-
-        // Then 2
         onNodeWithText("완료된 작업").assertIsDisplayed()
         onNodeWithText("진행중 작업").assertIsDisplayed()
     }
@@ -40,7 +41,10 @@ class KanbanBoardScreenTest {
         // Given
         setContent {
             val state = KanbanBoardState()
-            KanbanBoardScreen(boardState = state)
+            KanbanBoardScreen(
+                boardState = state,
+                onShowSnackbar = {}
+            )
         }
 
         // When

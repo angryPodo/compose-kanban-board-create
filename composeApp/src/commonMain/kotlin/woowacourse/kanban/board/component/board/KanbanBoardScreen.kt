@@ -7,8 +7,9 @@ import woowacourse.kanban.board.component.dialog.TaskDialog
 
 @Composable
 fun KanbanBoardScreen(
+    onShowSnackbar: (String) -> Unit,
     modifier: Modifier = Modifier,
-    boardState: KanbanBoardState = rememberKanbanBoardState()
+    boardState: KanbanBoardState = rememberKanbanBoardState(),
 ) {
     KanbanBoardContent(
         modifier = modifier,
@@ -18,7 +19,10 @@ fun KanbanBoardScreen(
 
     if (boardState.isTaskDialogVisible) {
         TaskDialog(
-            onCreateClick = boardState::addTask,
+            onCreateClick = { result ->
+                boardState.addTask(result)
+                onShowSnackbar("새로운 태스크가 추가되었습니다.")
+            },
             onDismissClick = boardState::hideTaskDialog,
         )
     }
