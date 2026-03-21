@@ -26,7 +26,7 @@ class KanbanBoardScreenTest {
         setContent {
             KanbanBoardScreen(
                 boardState = state,
-                onShowSnackbar = {}
+                onShowSnackbar = {},
             )
         }
 
@@ -43,7 +43,7 @@ class KanbanBoardScreenTest {
             val state = KanbanBoardState()
             KanbanBoardScreen(
                 boardState = state,
-                onShowSnackbar = {}
+                onShowSnackbar = {},
             )
         }
 

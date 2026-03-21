@@ -19,11 +19,7 @@ import woowacourse.kanban.board.domain.TaskStatus
 import woowacourse.kanban.board.domain.TaskStatus.DONE
 
 @Composable
-fun KanbanBoardContent(
-    kanbanBoard: KanbanBoard,
-    onTaskCreateClick: () -> Unit,
-    modifier: Modifier = Modifier,
-) {
+fun KanbanBoardContent(kanbanBoard: KanbanBoard, onTaskCreateClick: () -> Unit, modifier: Modifier = Modifier) {
     with(kanbanBoard) {
         Column(
             modifier = modifier
@@ -48,7 +44,7 @@ fun KanbanBoardContent(
                 TaskStatus.entries.forEach { status ->
                     KanbanColumn(
                         status = status,
-                        tasks = getTasksByStatus(status)
+                        tasks = getTasksByStatus(status),
                     )
                 }
             }

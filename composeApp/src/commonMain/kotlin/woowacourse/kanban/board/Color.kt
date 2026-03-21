@@ -16,4 +16,3 @@ val Color.Companion.DeepGreen: Color
 
 val Color.Companion.LightGreen: Color
     get() = Color(0xFFF0FDF4)
-

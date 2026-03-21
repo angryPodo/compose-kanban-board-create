@@ -21,11 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun KanbanSnackbar(
-    message: String,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-) {
+fun KanbanSnackbar(message: String, onClick: () -> Unit, modifier: Modifier = Modifier) {
     Row(
         modifier = modifier
             .padding(bottom = 54.dp)

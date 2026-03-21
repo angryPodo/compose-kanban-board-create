@@ -31,13 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun KanbanBoardHeader(
-    completionRate: Float,
-    completeCount: Int,
-    totalCount: Int,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-) {
+fun KanbanBoardHeader(completionRate: Float, completeCount: Int, totalCount: Int, onClick: () -> Unit, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -47,7 +41,7 @@ fun KanbanBoardHeader(
                 color = Color.LightGray,
             )
             .padding(vertical = 12.dp, horizontal = 24.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+        verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -94,7 +88,7 @@ fun KanbanBoardHeader(
             modifier = Modifier.clip(CircleShape).fillMaxWidth(),
             color = Color.Blue,
             trackColor = Color.Gray,
-            drawStopIndicator = {}
+            drawStopIndicator = {},
         )
     }
 }

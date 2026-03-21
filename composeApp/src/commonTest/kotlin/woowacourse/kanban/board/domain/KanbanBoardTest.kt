@@ -78,11 +78,7 @@ class KanbanBoardTest {
         assertThat(board.getCountByStatus(TaskStatus.DONE)).isEqualTo(0)
     }
 
-    private fun createTask(
-        title: String = "테스트 제목",
-        status: TaskStatus = TaskStatus.TODO,
-        crewName: String = "테스트 크루",
-    ): KanbanTask {
+    private fun createTask(title: String = "테스트 제목", status: TaskStatus = TaskStatus.TODO, crewName: String = "테스트 크루"): KanbanTask {
         return KanbanTask(
             title = title,
             status = status,

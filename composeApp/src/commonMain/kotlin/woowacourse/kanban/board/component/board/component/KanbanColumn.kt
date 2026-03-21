@@ -35,11 +35,7 @@ import woowacourse.kanban.board.domain.Tag
 import woowacourse.kanban.board.domain.TaskStatus
 
 @Composable
-fun KanbanColumn(
-    status: TaskStatus,
-    tasks: List<KanbanTask>,
-    modifier: Modifier = Modifier,
-) {
+fun KanbanColumn(status: TaskStatus, tasks: List<KanbanTask>, modifier: Modifier = Modifier) {
     val title = remember(status) {
         when (status) {
             TaskStatus.TODO -> "To Do"
