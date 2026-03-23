@@ -21,7 +21,8 @@ fun KanbanBoardScreen(
         TaskDialog(
             onCreateClick = { result ->
                 boardState.addTask(result)
-                onShowSnackbar("새로운 태스크가 추가되었습니다.")
+                    .onSuccess { onShowSnackbar("새로운 태스크가 추가되었습니다.") }
+                    .onFailure { e -> onShowSnackbar(e.message ?: "태스크 추가에 실패했습니다.") }
             },
             onDismissClick = boardState::hideTaskDialog,
         )

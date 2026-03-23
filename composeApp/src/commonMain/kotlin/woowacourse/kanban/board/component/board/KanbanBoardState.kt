@@ -23,7 +23,7 @@ class KanbanBoardState(initialBoard: KanbanBoard = KanbanBoard()) {
         isTaskDialogVisible = false
     }
 
-    fun addTask(result: TaskFormResult) {
+    fun addTask(result: TaskFormResult): Result<Unit> = runCatching {
         val newTask = KanbanTask(
             title = result.title,
             description = result.description,
