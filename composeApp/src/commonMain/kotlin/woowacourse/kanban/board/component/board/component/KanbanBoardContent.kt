@@ -16,7 +16,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import woowacourse.kanban.board.domain.KanbanBoard
 import woowacourse.kanban.board.domain.TaskStatus
-import woowacourse.kanban.board.domain.TaskStatus.DONE
 
 @Composable
 fun KanbanBoardContent(kanbanBoard: KanbanBoard, onTaskCreateClick: () -> Unit, modifier: Modifier = Modifier) {
