@@ -6,6 +6,7 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.runComposeUiTest
 import kotlin.test.Test
+import woowacourse.kanban.board.component.dialog.model.TaskFormResult
 import woowacourse.kanban.board.domain.KanbanBoard
 import woowacourse.kanban.board.domain.KanbanTask
 import woowacourse.kanban.board.domain.TaskStatus
@@ -52,5 +53,33 @@ class KanbanBoardScreenTest {
 
         // Then
         onNodeWithText("태스크 제목을 입력하세요.").assertIsDisplayed()
+    }
+
+    @Test
+    fun `상태 객체의 addTask를 호출하면 화면이 리컴포지션되어 새로운 태스크와 완료율이 갱신된다`() = runComposeUiTest {
+        // Given
+        val state = KanbanBoardState()
+        setContent {
+            KanbanBoardScreen(
+                boardState = state,
+                onShowSnackbar = {},
+            )
+        }
+
+        onNodeWithText("완료율: 0% (0/0)").assertIsDisplayed()
+
+        // When
+        val newTaskResult = TaskFormResult(
+            title = "새로운 완료 작업",
+            description = "테스트용입니다",
+            tags = emptyList(),
+            status = TaskStatus.DONE,
+            assignee = "페임스",
+        )
+        state.addTask(newTaskResult)
+
+        // Then
+        onNodeWithText("새로운 완료 작업").assertIsDisplayed()
+        onNodeWithText("완료율: 100% (1/1)").assertIsDisplayed()
     }
 }
