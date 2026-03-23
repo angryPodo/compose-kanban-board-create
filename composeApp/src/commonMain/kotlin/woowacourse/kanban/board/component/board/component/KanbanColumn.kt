@@ -36,21 +36,8 @@ import woowacourse.kanban.board.domain.TaskStatus
 
 @Composable
 fun KanbanColumn(status: TaskStatus, tasks: List<KanbanTask>, modifier: Modifier = Modifier) {
-    val title = remember(status) {
-        when (status) {
-            TaskStatus.TODO -> "To Do"
-            TaskStatus.IN_PROGRESS -> "In Progress"
-            TaskStatus.DONE -> "Done"
-        }
-    }
-
-    val (headerBackgroundColor, contentBackgroundColor) = remember(status) {
-        when (status) {
-            TaskStatus.TODO -> Color.Blue to Color.LightBlue
-            TaskStatus.IN_PROGRESS -> Color.Orange to Color.LightYellow
-            TaskStatus.DONE -> Color.DeepGreen to Color.LightGreen
-        }
-    }
+    val title = status.displayName
+    val (headerBackgroundColor, contentBackgroundColor) = status.colors
 
     Column(
         modifier = modifier
@@ -102,6 +89,20 @@ fun KanbanColumn(status: TaskStatus, tasks: List<KanbanTask>, modifier: Modifier
         }
     }
 }
+
+private val TaskStatus.displayName: String
+    get() = when (this) {
+        TaskStatus.TODO -> "To Do"
+        TaskStatus.IN_PROGRESS -> "In Progress"
+        TaskStatus.DONE -> "Done"
+    }
+
+private val TaskStatus.colors: Pair<Color, Color>
+    get() = when (this) {
+        TaskStatus.TODO -> Color.Blue to Color.LightBlue
+        TaskStatus.IN_PROGRESS -> Color.Orange to Color.LightYellow
+        TaskStatus.DONE -> Color.DeepGreen to Color.LightGreen
+    }
 
 @Preview(device = Devices.TABLET)
 @Composable
