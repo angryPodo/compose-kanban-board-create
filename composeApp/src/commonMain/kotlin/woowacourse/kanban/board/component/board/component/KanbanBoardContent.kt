@@ -27,9 +27,7 @@ fun KanbanBoardContent(kanbanBoard: KanbanBoard, onTaskCreateClick: () -> Unit, 
                 .fillMaxSize(),
         ) {
             KanbanBoardHeader(
-                completionRate = completionRate,
-                completeCount = getCountByStatus(DONE),
-                totalCount = tasks.size,
+                board = kanbanBoard,
                 onClick = onTaskCreateClick,
                 modifier = Modifier,
             )

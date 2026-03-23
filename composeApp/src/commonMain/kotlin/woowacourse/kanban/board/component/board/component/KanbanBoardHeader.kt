@@ -29,9 +29,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import woowacourse.kanban.board.domain.KanbanBoard
+import woowacourse.kanban.board.domain.TaskStatus
 
 @Composable
-fun KanbanBoardHeader(completionRate: Float, completeCount: Int, totalCount: Int, onClick: () -> Unit, modifier: Modifier = Modifier) {
+fun KanbanBoardHeader(board: KanbanBoard, onClick: () -> Unit, modifier: Modifier = Modifier) {
+    val completionRate = board.completionRate
+    val completeCount = board.getCountByStatus(TaskStatus.DONE)
+    val totalCount = board.tasks.size
+
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -97,9 +103,7 @@ fun KanbanBoardHeader(completionRate: Float, completeCount: Int, totalCount: Int
 @Composable
 private fun KanbanBoardHeaderPreview() {
     KanbanBoardHeader(
-        completionRate = 0.5f,
-        completeCount = 3,
-        totalCount = 6,
+        board = KanbanBoard(),
         onClick = {},
     )
 }
