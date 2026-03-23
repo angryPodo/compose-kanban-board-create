@@ -14,7 +14,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -24,11 +23,11 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import woowacourse.kanban.board.DeepGreen
-import woowacourse.kanban.board.LightBlue
-import woowacourse.kanban.board.LightGreen
-import woowacourse.kanban.board.LightYellow
-import woowacourse.kanban.board.Orange
+import woowacourse.kanban.board.KanbanDeepGreen
+import woowacourse.kanban.board.KanbanLightBlue
+import woowacourse.kanban.board.KanbanLightGreen
+import woowacourse.kanban.board.KanbanLightYellow
+import woowacourse.kanban.board.KanbanOrange
 import woowacourse.kanban.board.component.card.KanbanCard
 import woowacourse.kanban.board.domain.KanbanTask
 import woowacourse.kanban.board.domain.Tag
@@ -99,9 +98,9 @@ private val TaskStatus.displayName: String
 
 private val TaskStatus.colors: Pair<Color, Color>
     get() = when (this) {
-        TaskStatus.TODO -> Color.Blue to Color.LightBlue
-        TaskStatus.IN_PROGRESS -> Color.Orange to Color.LightYellow
-        TaskStatus.DONE -> Color.DeepGreen to Color.LightGreen
+        TaskStatus.TODO -> Color.Blue to Color.KanbanLightBlue
+        TaskStatus.IN_PROGRESS -> Color.KanbanOrange to Color.KanbanLightYellow
+        TaskStatus.DONE -> Color.KanbanDeepGreen to Color.KanbanLightGreen
     }
 
 @Preview(device = Devices.TABLET)
