@@ -11,7 +11,9 @@ import woowacourse.kanban.board.domain.KanbanTask
 
 class KanbanBoardState(initialBoard: KanbanBoard = KanbanBoard()) {
     var kanbanBoard by mutableStateOf(initialBoard)
+        private set
     var isTaskDialogVisible by mutableStateOf(false)
+        private set
 
     fun showTaskDialog() {
         isTaskDialogVisible = true
